@@ -5,7 +5,7 @@ import { Avatar, Container, Button, Grid, Typography, Divider, List, ListItem, L
 import { Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 
-import moodImage from './MoodImage';
+import moodImage from '../utils/MoodImage';
 
 const GET_CHECKIN_INSIGNTS = gql`
   query GetMoodAverage {
@@ -44,6 +44,7 @@ export default function CheckInInsignts() {
     if (loading) return <p>Loading ...</p>;
 
     const userCheckIns = data["getUserCheckIns"];
+    const userInsights = data["getInsights"];
 
     return ( 
         <Container>
@@ -52,10 +53,10 @@ export default function CheckInInsignts() {
               + How's your day going today ?
             </Button>
             </Link> 
-
-            <Grid container alignItems="center">
+        {
+            userInsights && <Grid container alignItems="center">
                 <Grid item xs={2}>
-                <img width="100%" alt={data["getInsights"]["moodScore"]} src={moodImage(data["getInsights"]["moodScore"])} />
+                <img width="100%" alt={userInsights["moodScore"]} src={moodImage(data["getInsights"]["moodScore"])} />
                 </Grid>
                 
                 <Grid item xs={4}>
@@ -64,8 +65,11 @@ export default function CheckInInsignts() {
                     </Typography>
                     <small>Based on {data["getTotalCheckin"]["total"]} entries</small>
                 </Grid>
+                <Divider/>
             </Grid>
-            <Divider/>
+            
+        }
+            
 
             <Grid container alignItems="center">
             <List  className={classes.root} >
