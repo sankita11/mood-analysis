@@ -1,11 +1,1 @@
-{
-  "defaultEnv" : "dev",
-	"dev": {
-    "driver": "mysql",
-    "host": "localhost",
-    "user": "root",
-    "password": "112020DB",
-    "database": "unmind",
-    "multipleStatements": true
-  }
-}
+
